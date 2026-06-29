@@ -24,14 +24,19 @@ def _get(path: str, params: dict | None = None) -> dict | list:
     return response.json()
 
 
+def _active_profiles() -> list:
+    profiles = _get("/v1/profiles")
+    return [p for p in profiles if p.get("active", True)]
+
+
 def _profile_id() -> int:
     if WISE_PROFILE_ID:
         return int(WISE_PROFILE_ID)
-    profiles = _get("/v1/profiles")
+    profiles = _active_profiles()
     if WISE_PROFILE_TYPE:
         matches = [p for p in profiles if p.get("type", "").lower() == WISE_PROFILE_TYPE]
         if not matches:
-            raise ValueError(f"No profile found with type '{WISE_PROFILE_TYPE}'")
+            raise ValueError(f"No active profile found with type '{WISE_PROFILE_TYPE}'")
         return matches[0]["id"]
     return profiles[0]["id"]
 
@@ -39,10 +44,9 @@ def _profile_id() -> int:
 @mcp.tool()
 def get_profile() -> dict:
     """Fetch the profile associated with the API token (name, type, ID)."""
-    profiles = _get("/v1/profiles")
     return {
         "account": WISE_ACCOUNT_LABEL,
-        "profiles": profiles,
+        "profiles": _active_profiles(),
     }
 
 
