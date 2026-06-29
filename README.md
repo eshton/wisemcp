@@ -15,10 +15,10 @@ All responses include the `WISE_ACCOUNT_LABEL` so it's always clear which accoun
 
 ## Setup
 
-### 1. Install dependencies
+### 1. Build the Docker image
 
 ```bash
-pip install mcp httpx
+docker build -t wisemcp .
 ```
 
 ### 2. Smoke-test your token

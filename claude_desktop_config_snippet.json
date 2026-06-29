@@ -1,16 +1,16 @@
 {
   "mcpServers": {
     "wise-personal": {
-      "command": "python",
-      "args": ["/path/to/wise_mcp.py"],
+      "command": "docker",
+      "args": ["run", "--rm", "-i", "-e", "WISE_API_TOKEN", "-e", "WISE_ACCOUNT_LABEL", "wisemcp"],
       "env": {
         "WISE_API_TOKEN": "token_A",
         "WISE_ACCOUNT_LABEL": "Personal"
       }
     },
     "wise-business": {
-      "command": "python",
-      "args": ["/path/to/wise_mcp.py"],
+      "command": "docker",
+      "args": ["run", "--rm", "-i", "-e", "WISE_API_TOKEN", "-e", "WISE_ACCOUNT_LABEL", "wisemcp"],
       "env": {
         "WISE_API_TOKEN": "token_B",
         "WISE_ACCOUNT_LABEL": "Business"
