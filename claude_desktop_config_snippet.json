@@ -1,0 +1,20 @@
+{
+  "mcpServers": {
+    "wise-personal": {
+      "command": "python",
+      "args": ["/path/to/wise_mcp.py"],
+      "env": {
+        "WISE_API_TOKEN": "token_A",
+        "WISE_ACCOUNT_LABEL": "Personal"
+      }
+    },
+    "wise-business": {
+      "command": "python",
+      "args": ["/path/to/wise_mcp.py"],
+      "env": {
+        "WISE_API_TOKEN": "token_B",
+        "WISE_ACCOUNT_LABEL": "Business"
+      }
+    }
+  }
+}
