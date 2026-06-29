@@ -4,6 +4,10 @@ from mcp.server.fastmcp import FastMCP
 
 WISE_API_TOKEN = os.environ.get("WISE_API_TOKEN", "")
 WISE_ACCOUNT_LABEL = os.environ.get("WISE_ACCOUNT_LABEL", "Wise")
+# Optional: "personal" or "business" to auto-select by type.
+WISE_PROFILE_TYPE = os.environ.get("WISE_PROFILE_TYPE", "").lower()
+# Optional: explicit numeric profile ID, takes precedence over WISE_PROFILE_TYPE.
+WISE_PROFILE_ID = os.environ.get("WISE_PROFILE_ID", "")
 BASE_URL = "https://api.wise.com"
 
 mcp = FastMCP("wise")
@@ -21,8 +25,14 @@ def _get(path: str, params: dict | None = None) -> dict | list:
 
 
 def _profile_id() -> int:
+    if WISE_PROFILE_ID:
+        return int(WISE_PROFILE_ID)
     profiles = _get("/v1/profiles")
-    # Return the first profile's id
+    if WISE_PROFILE_TYPE:
+        matches = [p for p in profiles if p.get("type", "").lower() == WISE_PROFILE_TYPE]
+        if not matches:
+            raise ValueError(f"No profile found with type '{WISE_PROFILE_TYPE}'")
+        return matches[0]["id"]
     return profiles[0]["id"]
 
 

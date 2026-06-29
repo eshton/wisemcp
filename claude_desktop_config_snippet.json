@@ -2,18 +2,29 @@
   "mcpServers": {
     "wise-personal": {
       "command": "docker",
-      "args": ["run", "--rm", "-i", "-e", "WISE_API_TOKEN", "-e", "WISE_ACCOUNT_LABEL", "wisemcp"],
+      "args": ["run", "--rm", "-i", "-e", "WISE_API_TOKEN", "-e", "WISE_ACCOUNT_LABEL", "-e", "WISE_PROFILE_TYPE", "wisemcp"],
       "env": {
-        "WISE_API_TOKEN": "token_A",
-        "WISE_ACCOUNT_LABEL": "Personal"
+        "WISE_API_TOKEN": "your-token-here",
+        "WISE_ACCOUNT_LABEL": "Personal",
+        "WISE_PROFILE_TYPE": "personal"
       }
     },
-    "wise-business": {
+    "wise-business-a": {
       "command": "docker",
-      "args": ["run", "--rm", "-i", "-e", "WISE_API_TOKEN", "-e", "WISE_ACCOUNT_LABEL", "wisemcp"],
+      "args": ["run", "--rm", "-i", "-e", "WISE_API_TOKEN", "-e", "WISE_ACCOUNT_LABEL", "-e", "WISE_PROFILE_ID", "wisemcp"],
       "env": {
-        "WISE_API_TOKEN": "token_B",
-        "WISE_ACCOUNT_LABEL": "Business"
+        "WISE_API_TOKEN": "your-token-here",
+        "WISE_ACCOUNT_LABEL": "Business A",
+        "WISE_PROFILE_ID": "11111111"
+      }
+    },
+    "wise-business-b": {
+      "command": "docker",
+      "args": ["run", "--rm", "-i", "-e", "WISE_API_TOKEN", "-e", "WISE_ACCOUNT_LABEL", "-e", "WISE_PROFILE_ID", "wisemcp"],
+      "env": {
+        "WISE_API_TOKEN": "your-token-here",
+        "WISE_ACCOUNT_LABEL": "Business B",
+        "WISE_PROFILE_ID": "22222222"
       }
     }
   }
